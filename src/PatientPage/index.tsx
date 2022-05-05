@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../constants";
-import { useStateValue } from "../state";
+import { setPatient, useStateValue } from "../state";
 import { Gender, Patient } from "../types";
 import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
@@ -18,7 +18,7 @@ const PatientPage = () => {
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           `${apiBaseUrl}/patients/${id}`
         );
-        dispatch({ type: "SET_PATIENT", payload: patient });
+        dispatch(setPatient(patient));
       } catch (e) {
         console.error(e);
       }

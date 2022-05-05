@@ -12,6 +12,8 @@ import PatientPage from "./PatientPage";
 
 import { Typography } from "@material-ui/core";
 
+import { setPatientList } from "./state/reducer";
+
 const App = () => {
   const [, dispatch] = useStateValue();
   React.useEffect(() => {
@@ -22,7 +24,7 @@ const App = () => {
         const { data: patientListFromApi } = await axios.get<Patient[]>(
           `${apiBaseUrl}/patients`
         );
-        dispatch({ type: "SET_PATIENT_LIST", payload: patientListFromApi });
+        dispatch(setPatientList(patientListFromApi));
       } catch (e) {
         console.error(e);
       }
