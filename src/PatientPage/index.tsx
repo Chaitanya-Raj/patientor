@@ -10,7 +10,7 @@ import TransgenderIcon from "@mui/icons-material/Transgender";
 
 const PatientPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [{ patients }, dispatch] = useStateValue();
+  const [{ patients, diagnoses }, dispatch] = useStateValue();
   React.useEffect(() => {
     const fetchPatient = async () => {
       try {
@@ -49,16 +49,18 @@ const PatientPage = () => {
 
           <h2>entries</h2>
           {patients[id].entries.map((e) => (
-            <>
+            <div key={e.id}>
               <p>
                 {e.date} <i>{e.description}</i>
               </p>
               <ul>
-                {e.diagnosisCodes?.map((d) => (
-                  <li key={d}>{d}</li>
+                {e.diagnosisCodes?.map((dc) => (
+                  <li key={dc}>
+                    {dc} {diagnoses[dc].name}
+                  </li>
                 ))}
               </ul>
-            </>
+            </div>
           ))}
         </>
       )}
