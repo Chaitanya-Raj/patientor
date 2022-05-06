@@ -7,10 +7,13 @@ import { Gender, Patient } from "../types";
 import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 import TransgenderIcon from "@mui/icons-material/Transgender";
+import HospitalComponent from "../components/HospitalComponent";
+import OccupationalHealthcareEntry from "../components/OccupationalHealthcareComponent";
+import HealthCheckComponent from "../components/HealthCheckComponent";
 
 const PatientPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [{ patients, diagnoses }, dispatch] = useStateValue();
+  const [{ patients }, dispatch] = useStateValue();
   React.useEffect(() => {
     const fetchPatient = async () => {
       try {
@@ -47,21 +50,23 @@ const PatientPage = () => {
             occupation: {patients[id].occupation}
           </p>
 
-          <h2>entries</h2>
-          {patients[id].entries.map((e) => (
-            <div key={e.id}>
-              <p>
-                {e.date} <i>{e.description}</i>
-              </p>
-              <ul>
-                {e.diagnosisCodes?.map((dc) => (
-                  <li key={dc}>
-                    {dc} {diagnoses[dc].name}
-                  </li>
-                ))}
-              </ul>
+          {patients[id].entries.length !== 0 && (
+            <div>
+              <h2>entries</h2>
+              {patients[id].entries.map((e) => {
+                switch (e.type) {
+                  case "Hospital":
+                    return <HospitalComponent entry={e} />;
+                  case "OccupationalHealthcare":
+                    return <OccupationalHealthcareEntry entry={e} />;
+                  case "HealthCheck":
+                    return <HealthCheckComponent entry={e} />;
+                  default:
+                  // return assertNever(e);
+                }
+              })}
             </div>
-          ))}
+          )}
         </>
       )}
     </div>
