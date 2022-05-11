@@ -3,8 +3,11 @@ import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import { HealthCheckRating } from "../types";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Card from "@mui/material/Card";
+import { useStateValue } from "../state";
 
 const HealthCheckComponent = ({ entry }: { entry: HealthCheckEntry }) => {
+  const [{ diagnoses }] = useStateValue();
+
   const HealthRating = (rating: HealthCheckRating) => {
     switch (rating) {
       case HealthCheckRating.Healthy:
@@ -31,13 +34,13 @@ const HealthCheckComponent = ({ entry }: { entry: HealthCheckEntry }) => {
         <br />
         {HealthRating(entry.healthCheckRating)}
       </p>
-      {/* <ul>
+      <ul>
         {entry.diagnosisCodes?.map((dc) => (
           <li key={dc}>
             {dc} {diagnoses[dc].name}
           </li>
         ))}
-      </ul> */}
+      </ul>
       <p>diagnosed by {entry.specialist}</p>
     </Card>
   );
