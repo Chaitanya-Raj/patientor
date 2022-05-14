@@ -17,6 +17,11 @@ export type HealthCheckRatingOption = {
   label: string;
 };
 
+export type EntryTypeOption = {
+  value: string;
+  label: string;
+};
+
 // props for select field component
 type SelectFieldProps = {
   name: string;
@@ -24,8 +29,33 @@ type SelectFieldProps = {
   options: HealthCheckRatingOption[];
 };
 
+type TypeFieldProps = {
+  name: string;
+  label: string;
+  options: EntryTypeOption[];
+};
+
 const FormikSelect = ({ field, ...props }: FieldProps) => (
   <Select {...field} {...props} />
+);
+
+export const TypeField = ({ name, label, options }: TypeFieldProps) => (
+  <>
+    <InputLabel>{label}</InputLabel>
+    <Field
+      fullWidth
+      style={{ marginBottom: "0.5em" }}
+      label={label}
+      component={FormikSelect}
+      name={name}
+    >
+      {options.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label || option.value}
+        </MenuItem>
+      ))}
+    </Field>
+  </>
 );
 
 export const SelectField = ({ name, label, options }: SelectFieldProps) => (
@@ -126,7 +156,7 @@ export const DiagnosisSelection = ({
   }));
 
   return (
-    <FormControl style={{ width: 552, marginBottom: "30px" }}>
+    <FormControl style={{ width: "100%", marginBottom: "30px" }}>
       <InputLabel>Diagnoses</InputLabel>
       <Select
         multiple

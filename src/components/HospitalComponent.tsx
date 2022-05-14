@@ -25,6 +25,11 @@ const HospitalComponent = ({ entry }: { entry: HospitalEntry }) => {
         ))}
       </ul>
       <p>diagnosed by {entry.specialist}</p>
+
+      <p>
+        Discharged on {entry.discharge.date} on criteria:{" "}
+        {entry.discharge.criteria}
+      </p>
     </Card>
   );
 };

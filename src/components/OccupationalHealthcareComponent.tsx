@@ -29,6 +29,12 @@ const OccupationalHealthcareComponent = ({
         ))}
       </ul>
       <p>diagnosed by {entry.specialist}</p>
+      {entry.sickLeave?.startDate && entry.sickLeave?.endDate && (
+        <p>
+          Sick Leave from {entry.sickLeave.startDate} to{" "}
+          {entry.sickLeave.endDate}
+        </p>
+      )}
     </Card>
   );
 };

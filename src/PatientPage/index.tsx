@@ -15,7 +15,7 @@ import OccupationalHealthcareEntry from "../components/OccupationalHealthcareCom
 import HealthCheckComponent from "../components/HealthCheckComponent";
 import AddEntryModal from "../AddEntryModal";
 import Button from "@material-ui/core/Button";
-import { HealthCheckEntryFormValues } from "../AddEntryModal/AddEntryForm";
+import { EntryFormValues } from "../AddEntryModal/AddEntryForm";
 
 const PatientPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -45,7 +45,7 @@ const PatientPage = () => {
     setError(undefined);
   };
 
-  const submitNewEntry = async (values: HealthCheckEntryFormValues) => {
+  const submitNewEntry = async (values: EntryFormValues) => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { data: newEntry } = await axios.post<HealthCheckEntry>(
